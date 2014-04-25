@@ -14,12 +14,15 @@ makeCacheMatrix <- function(x = matrix()) {
 ## to cache and return the inverse of the matrix.
 
 cacheSolve <- function(x, ...) {
-	if (!exists("mat")) {  
-    if (!identical(x,mat)) {
-      makeCacheMatrix (x)
-    }
-	}  
+	if (exists("mat")) Cange<-!identical(x,mat) 
+      ## chacks if previously some matrix was inverted,  
+      ## ad if so, was it the same matrix or not.
+	if (!exists("inv") || (Cange)) {
+      ## if the matrix inverse wasn't cached OR if the matrix was changed afterwards
+      ## runs the function makeCacheMatrix to cach the inverse of the matrix.
+	makeCacheMatrix (x)
+	}
+	inv<<-inv    ## caches inv for inverted matrix
+	mat<<-mat    ## caches the original matrix
 	return(inv)  ## Return a matrix that is the inverse of 'x'
 }
-
-
